@@ -1,30 +1,48 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './styles.module.scss';
+import { AppRoutes, QuizPathes } from '../../consts';
+import SettingsButton from '../SettingsButton';
+import css from './styles.module.scss';
 
-export default function Header() {
+interface IProps {
+  mode?: string,
+}
+
+export default function Header({ mode }: IProps) {
   const activeStyles = useMemo(
     () => (bool: boolean) => (bool
-      ? styles.header__navigation__link__active
-      : styles.header__navigation__link),
+      ? css.header__navigation__link__active
+      : css.header__navigation__link),
     [],
   );
 
   return (
-    <div className={styles.header}>
-      <nav className={styles.header__navigation}>
+    <div className={css.header}>
+      <nav className={css.header__navigation}>
         <NavLink
           className={({ isActive }: { isActive: boolean }) => activeStyles(isActive)}
-          to="/"
+          to={AppRoutes.Root}
         >
-          Main
+          <div className={css.header__navigation__logo} />
         </NavLink>
-        <NavLink
-          className={({ isActive }: { isActive: boolean }) => activeStyles(isActive)}
-          to="/other"
-        >
-          Other page
-        </NavLink>
+        <div className={css.header__navigation__page_links}>
+          <NavLink
+            className={({ isActive }: { isActive: boolean }) => activeStyles(isActive)}
+            to={QuizPathes.Artist}
+          >
+            Artist quiz
+          </NavLink>
+          <NavLink
+            className={({ isActive }: { isActive: boolean }) => activeStyles(isActive)}
+            to={QuizPathes.Pictures}
+          >
+            Picture quiz
+          </NavLink>
+        </div>
+
+        <div className={css.header__navigation__settings}>
+          {!mode && <SettingsButton />}
+        </div>
       </nav>
     </div>
   );
