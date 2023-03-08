@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type anyFunc = (...args: any[]) => any;
 
 export default function debounce<T extends anyFunc>(foo: T, time: number) {
