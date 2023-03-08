@@ -3,5 +3,10 @@ export default function getLocalStorageVal(valName: string) {
   if (getData) {
     return JSON.parse(getData);
   }
-  return null;
+  return {
+    volume: null,
+    mute: null,
+    isTimer: null,
+    timeToAnswer: null,
+  };
 }
