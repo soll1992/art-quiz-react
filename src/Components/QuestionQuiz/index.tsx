@@ -21,6 +21,7 @@ export default function QuestionQuiz() {
     currentQuizData,
     quiz,
     category,
+    isLoading,
   } = useCurrentQuizData();
 
   const {
@@ -38,7 +39,7 @@ export default function QuestionQuiz() {
     currentQuizData, volume, quiz, category, mute,
   });
 
-  if (pathValidation(currentQuizData, category, 'category')) {
+  if (pathValidation(currentQuizData, category, isLoading, 'category')) {
     return <ErrorPage />;
   }
 
@@ -53,7 +54,7 @@ export default function QuestionQuiz() {
       />
       <main className={css.quiz__main}>
         <div>
-          {quiz === 'pictures'
+          {quiz === 'pictures' && currentQuizData
             ? `Which is ${currentQuizData[currentQuestion]?.author} picture?`
             : 'Who is the author of this picture?'}
         </div>
@@ -61,8 +62,8 @@ export default function QuestionQuiz() {
         <div className={css.quiz__main__question}>
           <img
             className={css.quiz__main__question__image}
-            src={`${assetsQuizPath}/${currentQuizData[currentQuestion]?.imageNum}.webp`}
-            alt={currentQuizData[currentQuestion]?.name}
+            src={`${assetsQuizPath}/${currentQuizData && currentQuizData[currentQuestion]?.imageNum}.webp`}
+            alt={currentQuizData ? currentQuizData[currentQuestion]?.name : ''}
           />
         </div>
         )}
